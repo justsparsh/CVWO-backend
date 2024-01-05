@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby version: 3.2.2
+Rails version: 7.1.2
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Fork this repo.
+2. Clone your forked repo.
+3. Open your terminal and navigate to the directory containing your cloned project.
+4. Enter the command:
+```bash
+rails server
+```
