@@ -11,4 +11,4 @@ Rails version: 7.1.2
 ```bash
 rails server
 ```
-6. Proceed to run the frontend respository ([https://github.com/justsparsh/CVWO-frontend](CVWO-frontend))
+6. Proceed to run the frontend respository [https://github.com/justsparsh/CVWO-frontend]((CVWO-frontend))
