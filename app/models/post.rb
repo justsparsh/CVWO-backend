@@ -1,4 +1,4 @@
 class Post < ApplicationRecord
     belongs_to :user, foreign_key: 'userID'
-    serialize :childPostId, JSON
+    belongs_to :thread, foreign_key: 'threadID'
   end

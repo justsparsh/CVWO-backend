@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_29_062128) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_05_085545) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,9 +18,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_29_062128) do
     t.integer "userID"
     t.string "userName"
     t.text "text"
-    t.boolean "isParentPost"
-    t.integer "parentPostId"
-    t.integer "childPostId", default: [], array: true
+    t.integer "threadID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "threads", force: :cascade do |t|
+    t.integer "userID"
+    t.string "userName"
+    t.text "text"
+    t.text "threadTitle"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

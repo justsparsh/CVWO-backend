@@ -5,7 +5,7 @@ class CreatePosts < ActiveRecord::Migration[7.1]
       t.string :userName
       t.text :text
       t.boolean :isParentPost
-      t.integer :parentPostId
+      t.integer :threadID
       t.integer :childPostId, array: true, default: []
 
       t.timestamps

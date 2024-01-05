@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   get '/posts/count', to: 'posts#count'
   resources :posts
 
+  resources :threads
+
 end
