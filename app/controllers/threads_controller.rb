@@ -2,7 +2,10 @@ class ThreadsController < ApplicationController
   before_action :set_thread, only: [:show, :update, :destroy]
 
   def index
-    @threads = MessageThread.all
+    page_number = params[:page].to_i.positive? ? params[:page].to_i : 1
+    per_page = 5 
+
+    @threads = MessageThread.order(id: :desc).offset((page_number - 1) * per_page).limit(per_page)
     render json: @threads
   end
 
