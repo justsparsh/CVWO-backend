@@ -10,7 +10,7 @@ class ThreadsController < ApplicationController
   end
 
   def show
-    render json: @thread
+    render json: [@thread]
   end
 
   def create
