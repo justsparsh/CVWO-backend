@@ -1,11 +1,17 @@
 class ThreadsController < ApplicationController
   before_action :set_thread, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:count, :index]
 
   def index
     page_number = params[:page].to_i.positive? ? params[:page].to_i : 1
     per_page = 5 
 
-    @threads = MessageThread.order(id: :desc).offset((page_number - 1) * per_page).limit(per_page)
+    if @user
+      @threads = @user.message_threads.order(id: :desc).offset((page_number - 1) * per_page).limit(per_page)
+    else
+      @threads = MessageThread.order(id: :desc).offset((page_number - 1) * per_page).limit(per_page)
+    end
+
     render json: @threads
   end
 
@@ -37,11 +43,19 @@ class ThreadsController < ApplicationController
   end
 
   def count
-    total_threads = MessageThread.count
+    if @user 
+      total_threads = @user.message_threads.count
+    else
+      total_threads = MessageThread.count
+    end
     render json: { total_threads: total_threads }
   end
 
   private
+
+  def set_user
+    @user = User.find_by(id: params[:userID])
+  end
 
   def set_thread
     @thread = MessageThread.find(params[:id])
