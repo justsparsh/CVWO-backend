@@ -12,9 +12,10 @@ Rails.application.routes.draw do
   end
 
   get '/posts/count', to: 'posts#count'
-  resources :posts
+  resources :posts, controller: 'posts', except: [:new, :edit]
 
   get '/threads/count', to: 'threads#count'
-  resources :threads, controller: 'threads'
+  resources :threads, controller: 'threads', except: [:new, :edit]
+  
 
 end

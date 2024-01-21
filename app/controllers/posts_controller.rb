@@ -42,7 +42,7 @@ class PostsController < ApplicationController
   
     def destroy
       @post.destroy
-      head :no_content
+      render json: { message: 'Thread was successfully destroyed.' }, status: :ok
     end
 
     def count
