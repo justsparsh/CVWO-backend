@@ -11,8 +11,8 @@ class PostsController < ApplicationController
           @posts = @user.posts.order(id: :desc).offset((page_number - 1) * per_page).limit(per_page)
         elsif @thread
           @posts = @thread.posts.order(id: :desc).offset((page_number - 1) * per_page).limit(per_page)
-        else
-          @posts = Post.order(id: :desc).offset((page_number - 1) * per_page).limit(per_page)
+        # else
+        #   @posts = Post.order(id: :desc).offset((page_number - 1) * per_page).limit(per_page)
         end
     
         render json: @posts
@@ -50,8 +50,8 @@ class PostsController < ApplicationController
         total_posts = @user.posts.count
       elsif @thread
         total_posts = @thread.posts.count
-      else
-        total_posts = Post.count
+      # else
+      #   total_posts = Post.count
       end
     
       render json: { total_posts: total_posts }
