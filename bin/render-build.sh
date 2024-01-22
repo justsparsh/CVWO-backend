@@ -3,3 +3,5 @@
 set -o errexit
 
 bundle install
+rake db:reset
+rake db:migrate
