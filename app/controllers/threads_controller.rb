@@ -55,11 +55,24 @@ class ThreadsController < ApplicationController
   end
 
   def count
+    ticker_params = JSON.parse(params[:tickers])
+    sentiment_params = JSON.parse(params[:sentiments])
+
     if @user 
-      total_threads = @user.message_threads.count
+      @threads = @user.message_threads
     else
-      total_threads = MessageThread.count
+      @threads = MessageThread.all
     end
+
+    if ticker_params.length > 0
+      @threads = @threads.tagged_with(ticker_params, :any => true)
+    end
+
+    if sentiment_params.length > 0
+      @threads = @threads.tagged_with(sentiment_params, :any => true)
+    end
+
+    total_threads = @threads.count
     render json: { total_threads: total_threads }
   end
 
