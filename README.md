@@ -5,7 +5,7 @@ Rails version: 7.1.2
 
 I have deployed this project on Render and so if you want to take a look at the end-product, simply go to [https://dazzling-queijadas-b8cd49.netlify.app](https://dazzling-queijadas-b8cd49.netlify.app) (best experience on desktop and Google Chrome). However, since the backend is running on the free version of Render, the server gets spun down with inactivity. If the website is unresponsive at the beginning, you may have to wait a few minutes. If you want to run the webapp locally for a smoother experience, follow the steps below:
 
-## Note: If you run the backend locally, you must run the frontend locally as well.
+### Note: If you run the backend locally, you must run the frontend locally as well.
 
 ## Running locally
 1. Fork this repo.
