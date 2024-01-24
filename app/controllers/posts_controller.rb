@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+    before_action :authenticate_user, only: [:index, :update, :destroy, :count, :create]
     before_action :set_post, only: [:show, :update, :destroy]
     before_action :set_user, only: [:index, :count]
     before_action :set_thread, only: [:index, :count]
@@ -58,6 +59,21 @@ class PostsController < ApplicationController
     end
   
     private
+
+  def authenticate_user
+    name = request.headers['Name']
+    token = request.headers['Authorization']&.split(' ')&.last
+    begin
+      decoded_payload = JwtService.decode(token)
+      @current_user = User.find(decoded_payload.first['user_id'])
+      if name != @current_user.name 
+        render json: { error: 'Invalid user authentication' }, status: :unauthorized
+        return
+      end
+    rescue JWT::DecodeError
+      render json: { error: 'Invalid token' }, status: :unauthorized
+    end
+  end
   
     def set_post
       @post = Post.find(params[:id])

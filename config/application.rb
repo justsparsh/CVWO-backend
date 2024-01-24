@@ -29,6 +29,7 @@ module ReactApp
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.jwt_secret = 'dQxD7SiAGjtkLwAQZXgfpbSnnQQ4bHlfy4iFaLp4eL8yfhNd5NJrolnxEAwxNh5S'
 
   end
 end
