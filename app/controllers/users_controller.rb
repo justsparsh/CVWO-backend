@@ -5,7 +5,8 @@ class UsersController < ApplicationController
       if params[:name].present?
         authenticate_user_by_name
       else
-        render_all_users
+        @users = User.all
+        render json: @users
       end
     end
   
@@ -51,12 +52,16 @@ class UsersController < ApplicationController
     end
     
     def authenticate_user_with_password
-      if params[:password].present? && @user.password == params[:password]
-        payload = { user_id: @user.id }
-        token = JwtService.encode(payload)
-        render json: { user: @user, token: token }
+      if params[:password].present?
+        if @user.password == params[:password]
+          payload = { user_id: @user.id }
+          token = JwtService.encode(payload)
+          render json: { user: @user, token: token }
+        else
+          render json: { error: 'Password is incorrect' }
+        end
       else
-        render json: { error: 'Password is incorrect' }
+        render json: @user
       end
     end
 
