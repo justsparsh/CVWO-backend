@@ -3,5 +3,5 @@
 set -o errexit
 
 bundle install
-# DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rake db:reset
-# rake db:migrate
+DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rake db:reset
+rake db:migrate

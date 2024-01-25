@@ -5,6 +5,11 @@ class UsersController < ApplicationController
       if params[:name].present?
         @user = User.find_by(name: params[:name])
         if @user
+          if params[:password].present?
+            if @user.password != params[:password]
+              render json: { error: 'Password is incorrect' }
+            end
+          end
           payload = { user_id: @user.id }
           token = JwtService.encode(payload)
           render json: { user: @user, token: token }
@@ -63,7 +68,7 @@ class UsersController < ApplicationController
     end
   
     def user_params
-      params.require(:user).permit(:name)
+      params.require(:user).permit(:name, :password)
     end
   end
   
