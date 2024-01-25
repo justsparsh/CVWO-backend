@@ -52,7 +52,9 @@ class UsersController < ApplicationController
     
     def authenticate_user_with_password
       if params[:password].present? && @user.password == params[:password]
-        generate_token_and_render_user
+        payload = { user_id: @user.id }
+        token = JwtService.encode(payload)
+        render json: { user: @user, token: token }
       else
         render json: { error: 'Password is incorrect' }
       end
