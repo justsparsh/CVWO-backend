@@ -3,22 +3,9 @@ class UsersController < ApplicationController
   
     def index
       if params[:name].present?
-        @user = User.find_by(name: params[:name])
-        if @user
-          if params[:password].present?
-            if @user.password != params[:password]
-              render json: { error: 'Password is incorrect' }
-            end
-          end
-          payload = { user_id: @user.id }
-          token = JwtService.encode(payload)
-          render json: { user: @user, token: token }
-        else 
-          render json: { error: 'User not found' }, status: :not_found
-        end
+        authenticate_user_by_name
       else
-        @users = User.all
-        render json: @users
+        render_all_users
       end
     end
   
@@ -52,6 +39,24 @@ class UsersController < ApplicationController
     end
   
     private
+
+    def authenticate_user_by_name
+      @user = User.find_by(name: params[:name])
+    
+      if @user
+        authenticate_user_with_password
+      else
+        render json: { error: 'User not found' }, status: :not_found
+      end
+    end
+    
+    def authenticate_user_with_password
+      if params[:password].present? && @user.password == params[:password]
+        generate_token_and_render_user
+      else
+        render json: { error: 'Password is incorrect' }
+      end
+    end
 
     # def authenticate_user
     #   token = request.headers['Authorization']&.split(' ')&.last
